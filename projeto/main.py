@@ -17,6 +17,18 @@ def salvar_operacao(tipo, valores, resultado):
     with open(ARQUIVO_HISTORICO, "w") as f:
         json.dump(historico, f, indent=2)
 
+def listar_historico():
+    with open(ARQUIVO_HISTORICO, "r") as f:
+        historico = json.load(f)
+
+    if not historico:
+        print("Nenhuma operação registrada.")
+        return
+
+    print("\nHistórico de operações:")
+    for i, op in enumerate(historico, 1):
+        print(f"{i}. {op['tipo']} {op['valores']} = {op['resultado']} ({op['data']})")
+
 # garante que o arquivo existe
 def inicializar_historico():
     if not os.path.exists(ARQUIVO_HISTORICO):
