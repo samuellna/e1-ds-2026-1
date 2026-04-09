@@ -37,16 +37,19 @@ def inicializar_historico():
 
 def somar(a, b):
     resultado = a + b
+    salvar_operacao("soma", [a, b], resultado)
     return resultado
 
 
 def subtrair(a, b):
     resultado = a - b
+    salvar_operacao("subtracao", [a, b], resultado)
     return resultado
 
 
 def multiplicar(a, b):
     resultado = a * b
+    salvar_operacao("multiplicacao", [a, b], resultado)
     return resultado
 
 
@@ -54,6 +57,7 @@ def dividir(a, b):
     if b == 0:
         raise ZeroDivisionError("Não é possível dividir por zero.")
     resultado = a / b
+    salvar_operacao("divisao", [a, b], resultado)
     return resultado
 
 
@@ -72,6 +76,7 @@ def bhaskara(a, b, c):
         x2 = (-b - math.sqrt(delta)) / (2*a)
         resultado = f"x1 = {x1}, x2 = {x2}"
 
+    salvar_operacao("bhaskara", [a, b, c], resultado)
     return resultado
 
 
@@ -86,7 +91,7 @@ def calcular():
             opcao = input("\n1 - Operações básicas\n2 - Bhaskara\n3 - Ver histórico\nEscolha: ").strip()
 
             if opcao == "3":
-				# todo: implementar função para ler e exibir histórico
+                listar_historico()
                 continue
 
             a = float(input("Digite o primeiro número: "))
