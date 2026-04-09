@@ -116,7 +116,7 @@ def calcular():
                 print("Opção inválida.")
                 continue
 
-            print(f"Resultado A: {resultado}")
+            print(f"Resultado: {resultado}")
 
         except ValueError:
             print("Entrada inválida.")
