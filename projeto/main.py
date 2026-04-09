@@ -1,7 +1,21 @@
 import json
 import os
-
+from datetime import datetime
 ARQUIVO_HISTORICO = "historico.json"
+
+def salvar_operacao(tipo, valores, resultado):
+    with open(ARQUIVO_HISTORICO, "r") as f:
+        historico = json.load(f)
+
+    historico.append({
+        "tipo": tipo,
+        "valores": valores,
+        "resultado": resultado,
+        "data": datetime.now().isoformat()
+    })
+
+    with open(ARQUIVO_HISTORICO, "w") as f:
+        json.dump(historico, f, indent=2)
 
 # garante que o arquivo existe
 def inicializar_historico():
