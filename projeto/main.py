@@ -29,36 +29,32 @@ def listar_historico():
     for i, op in enumerate(historico, 1):
         print(f"{i}. {op['tipo']} {op['valores']} = {op['resultado']} ({op['data']})")
 
-# garante que o arquivo existe
 def inicializar_historico():
     if not os.path.exists(ARQUIVO_HISTORICO):
         with open(ARQUIVO_HISTORICO, "w") as f:
             json.dump([], f)
+            
+def executar_operacao(tipo, funcao, *valores):
+    resultado = funcao(*valores)
+    salvar_operacao(tipo, list(valores), resultado)
+    return resultado
 
 def somar(a, b):
-    resultado = a + b
-    salvar_operacao("soma", [a, b], resultado)
-    return resultado
+    return executar_operacao("soma", lambda x, y: x + y, a, b)
 
 
 def subtrair(a, b):
-    resultado = a - b
-    salvar_operacao("subtracao", [a, b], resultado)
-    return resultado
+    return executar_operacao("subtracao", lambda x, y: x - y, a, b)
 
 
 def multiplicar(a, b):
-    resultado = a * b
-    salvar_operacao("multiplicacao", [a, b], resultado)
-    return resultado
+    return executar_operacao("multiplicacao", lambda x, y: x * y, a, b)
 
 
 def dividir(a, b):
     if b == 0:
         raise ZeroDivisionError("Não é possível dividir por zero.")
-    resultado = a / b
-    salvar_operacao("divisao", [a, b], resultado)
-    return resultado
+    return executar_operacao("divisao", lambda x, y: x / y, a, b)
 
 
 def bhaskara(a, b, c):
